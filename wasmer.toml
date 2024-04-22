@@ -1,0 +1,19 @@
+[package]
+name = 'tzf-wasm'
+version = '0.1.0'
+description = 'A Node.js binding of tzf-rs'
+
+# See more keys and definitions at https://docs.wasmer.io/registry/manifest
+
+[[module]]
+name = 'tzf-wasm'
+source = 'target/wasm32-wasi/release/tzf-wasm.wasm'
+abi = 'wasi'
+
+[module.interfaces]
+wasi = '0.1.0-unstable'
+
+[[command]]
+name = 'tzf-wasm'
+module = 'tzf-wasm'
+runner = 'wasi'

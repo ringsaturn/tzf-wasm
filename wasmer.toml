@@ -1,6 +1,6 @@
 [package]
 name = 'tzf-wasm'
-version = '0.1.0'
+version = '0.1.2'
 description = 'A Node.js binding of tzf-rs'
 
 # See more keys and definitions at https://docs.wasmer.io/registry/manifest

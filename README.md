@@ -10,7 +10,7 @@
         <script type="module">
             import init, {
                 WasmFinder,
-            } from "https://www.unpkg.com/tzf-wasm@v0.1.2/tzf_wasm.js";
+            } from "https://www.unpkg.com/tzf-wasm@v0.1.3/tzf_wasm.js";
 
             let finder;
 

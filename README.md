@@ -19,7 +19,7 @@
                 finder = new WasmFinder();
                 const lng = -74.0060;
                 const lat = 40.7128;
-                const timezone = finder.get_timezone(lat, lng);
+                const timezone = finder.get_tz(lng, lat);
                 console.log(`Timezone for (${lat}, ${lng}): ${timezone}`);
             }
 

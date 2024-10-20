@@ -16,8 +16,18 @@ impl WasmFinder {
     }
 
     #[wasm_bindgen]
-    pub fn get_tz(&self, lng: f64, lat: f64) -> String {
+    pub fn get_tz_name(&self, lng: f64, lat: f64) -> String {
         self.finder.get_tz_name(lng, lat).to_string()
+    }
+
+    #[wasm_bindgen]
+    pub fn get_tz_names(&self, lng: f64, lat: f64) -> Box<[JsValue]> {
+        self.finder
+            .get_tz_names(lng, lat)
+            .iter()
+            .map(|&name| JsValue::from_str(name))
+            .collect::<Vec<JsValue>>()
+            .into_boxed_slice()
     }
 
     #[wasm_bindgen]

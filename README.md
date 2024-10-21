@@ -3,6 +3,8 @@
 A fast library to find the timezone of a given location using WebAssembly for
 JavaScript, powered by [`tzf-rs`](https://github.com/ringsaturn/tzf-rs).
 
+## Use in HTML
+
 ```html
 <!DOCTYPE html>
 <html lang="en">

@@ -1,4 +1,7 @@
-# `tzf-wasm`
+# `tzf-wasm` [![NPM Version](https://img.shields.io/npm/v/tzf-wasm)](https://www.npmjs.com/package/tzf-wasm)
+
+A fast library to find the timezone of a given location using WebAssembly for
+JavaScript, powered by [`tzf-rs`](https://github.com/ringsaturn/tzf-rs).
 
 ```html
 <!DOCTYPE html>
@@ -31,3 +34,10 @@
 ```
 
 For a simple web page, see <https://github.com/ringsaturn/tzf-web>.
+
+## LICENSE
+
+This project is licensed under the [MIT license](./LICENSE). The data is
+licensed under the
+[ODbL license](https://github.com/ringsaturn/tzf-rel/blob/main/LICENSE), same as
+[`evansiroky/timezone-boundary-builder`](https://github.com/evansiroky/timezone-boundary-builder)

@@ -232,9 +232,9 @@ dependencies = [
 
 [[package]]
 name = "prost"
-version = "0.13.3"
+version = "0.13.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7b0487d90e047de87f984913713b85c601c05609aad5b0df4b4573fbf69aa13f"
+checksum = "2c0fef6c4230e4ccf618a35c59d7ede15dea37de8427500f50aff708806e42ec"
 dependencies = [
  "bytes",
  "prost-derive",
@@ -242,11 +242,10 @@ dependencies = [
 
 [[package]]
 name = "prost-build"
-version = "0.13.3"
+version = "0.13.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0c1318b19085f08681016926435853bbf7858f9c082d0999b80550ff5d9abe15"
+checksum = "d0f3e5beed80eb580c68e2c600937ac2c4eedabdfd5ef1e5b7ea4f3fba84497b"
 dependencies = [
- "bytes",
  "heck",
  "itertools",
  "log",
@@ -263,9 +262,9 @@ dependencies = [
 
 [[package]]
 name = "prost-derive"
-version = "0.13.3"
+version = "0.13.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e9552f850d5f0964a4e4d0bf306459ac29323ddfbae05e35a7c0d35cb0803cc5"
+checksum = "157c5a9d7ea5c2ed2d9fb8f495b64759f7816c7eaea54ba3978f0d63000162e3"
 dependencies = [
  "anyhow",
  "itertools",
@@ -276,9 +275,9 @@ dependencies = [
 
 [[package]]
 name = "prost-types"
-version = "0.13.3"
+version = "0.13.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4759aa0d3a6232fb8dbdb97b61de2c20047c68aca932c7ed76da9d788508d670"
+checksum = "cc2f1e56baa61e93533aebc21af4d2134b70f66275e0fcdf3cbe43d77ff7e8fc"
 dependencies = [
  "prost",
 ]
@@ -399,15 +398,15 @@ dependencies = [
 
 [[package]]
 name = "tzf-rel"
-version = "0.0.2024-b"
+version = "0.0.2025-a"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "263f86c22a1e8f2399cb761d3b79e56db97df13d6d0a9cb36090f581cd980979"
+checksum = "7f83c80655e94407bd7763aedbe1b9cab74389e6f07d43f47ab671c7ce7d8b44"
 
 [[package]]
 name = "tzf-rs"
-version = "0.4.9"
+version = "0.4.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d45fddcb6ad00c11dbe0a77130eddd7f93bcb0adede28b87a75159583e363fec"
+checksum = "a3550bdca708346042836edbe842081b92af11dd21edcda8e4c0bdee128914d0"
 dependencies = [
  "anyhow",
  "bytes",
@@ -420,7 +419,7 @@ dependencies = [
 
 [[package]]
 name = "tzf-wasm"
-version = "0.1.4"
+version = "0.1.5"
 dependencies = [
  "getrandom",
  "tzf-rs",

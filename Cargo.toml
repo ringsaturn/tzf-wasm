@@ -1,6 +1,6 @@
 [package]
 name = "tzf-wasm"
-version = "0.1.4"
+version = "0.1.5"
 edition = "2021"
 description = "A wasm library for tzf-rs"
 repository = "https://github.com/ringsaturn/tzf-wasm"
@@ -11,7 +11,7 @@ crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 wasm-bindgen = "0.2.99"
-tzf-rs = { version = "0.4.9", default-features = false }
+tzf-rs = { version = "0.4.10", default-features = false }
 getrandom = { version = "0.2", features = ["js"] }
 
 [dev-dependencies]

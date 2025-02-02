@@ -1,6 +1,6 @@
 [package]
 name = "tzf-wasm"
-version = "0.1.5"
+version = "0.1.6"
 edition = "2021"
 description = "A wasm library for tzf-rs"
 repository = "https://github.com/ringsaturn/tzf-wasm"

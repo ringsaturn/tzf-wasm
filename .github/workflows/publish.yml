@@ -10,16 +10,10 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  preview:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+  build:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
     steps:
       - name: Check out sources
         uses: actions/checkout@v5
@@ -34,10 +28,38 @@ jobs:
         with:
           version: latest
 
-      - name: Build wasm preview assets
+      - name: Build shared artifacts
         run: |
-          wasm-pack build --release --target web --out-dir dist/pkg
+          wasm-pack build --release --target web
+          rm -rf dist
+          mkdir dist
           cp preview/index.html dist/index.html
+          cp -r pkg dist/pkg
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: wasm-dist
+          path: dist
+          if-no-files-found: error
+
+  preview:
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: wasm-dist
+          path: .
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v4
@@ -52,30 +74,21 @@ jobs:
         uses: actions/deploy-pages@v4
 
   publish_npm:
+    needs: build
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     permissions:
       contents: read
     steps:
-      - name: Check out sources
-        uses: actions/checkout@v5
-
-      - name: Set up Rust toolchain
-        uses: actions-rust-lang/setup-rust-toolchain@v1
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
         with:
-          toolchain: stable
-
-      - name: Set up wasm-pack
-        uses: jetli/wasm-pack-action@v0.4.0
-        with:
-          version: latest
-
-      - name: Build npm package
-        run: wasm-pack build --release --target web
+          name: wasm-dist
+          path: .
 
       - name: Verify tag matches package version
         run: |
-          PKG_VERSION=$(jq -r '.version' pkg/package.json)
+          PKG_VERSION=$(jq -r '.version' dist/pkg/package.json)
           TAG_VERSION=${GITHUB_REF_NAME#v}
           if [ "$PKG_VERSION" != "$TAG_VERSION" ]; then
             echo "Package version ${PKG_VERSION} does not match tag ${GITHUB_REF_NAME}." >&2
@@ -99,5 +112,5 @@ jobs:
           registry-url: https://registry.npmjs.org
 
       - name: Publish to npm
-        working-directory: pkg
+        working-directory: dist/pkg
         run: npm publish --access public

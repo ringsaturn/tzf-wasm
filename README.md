@@ -3,6 +3,11 @@
 A fast library to find the timezone of a given location using WebAssembly for
 JavaScript, powered by [`tzf-rs`](https://github.com/ringsaturn/tzf-rs).
 
+## Preview
+
+The latest build from the `main` branch is published automatically to GitHub Pages:
+[https://ringsaturn.github.io/tzf-wasm/](https://ringsaturn.github.io/tzf-wasm/)
+
 ## Use in HTML
 
 ```html

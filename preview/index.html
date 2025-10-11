@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>tzf-wasm preview</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    body {
+      margin: 0;
+      padding: 2rem 1rem;
+      display: flex;
+      justify-content: center;
+      background: radial-gradient(circle at top, rgba(0, 128, 255, 0.12), transparent 55%);
+      min-height: 100vh;
+    }
+
+    main {
+      width: min(420px, 100%);
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(15, 32, 53, 0.18);
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .status {
+      border-radius: 999px;
+      font-size: 0.875rem;
+      padding: 0.35rem 0.75rem;
+      background: rgba(0, 128, 255, 0.12);
+      color: #0668c4;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .status[data-ready="false"] {
+      background: rgba(255, 149, 0, 0.15);
+      color: #ad6100;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0.75rem;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.8rem;
+      border-radius: 10px;
+      border: none;
+      font-weight: 600;
+      font-size: 1rem;
+      background: linear-gradient(135deg, #006cff, #00b4ff);
+      color: white;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(0, 128, 255, 0.25);
+    }
+
+    .result {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      border-radius: 12px;
+      background: rgba(0, 128, 255, 0.08);
+      color: #004182;
+      font-weight: 600;
+      min-height: 3.25rem;
+    }
+
+    footer {
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      color: rgba(0, 0, 0, 0.55);
+      text-align: center;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      main {
+        background: rgba(18, 31, 49, 0.86);
+        color: #eef3ff;
+      }
+
+      input {
+        border-color: rgba(255, 255, 255, 0.1);
+        background: rgba(0, 0, 0, 0.35);
+        color: inherit;
+      }
+
+      .result {
+        background: rgba(0, 128, 255, 0.18);
+        color: #a9d4ff;
+      }
+
+      footer {
+        color: rgba(255, 255, 255, 0.55);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>tzf-wasm preview</h1>
+    <div class="status" data-status data-ready="false">Loading WebAssembly…</div>
+
+    <form id="lookup-form">
+      <label for="latitude">Latitude</label>
+      <input id="latitude" name="latitude" type="number" step="0.0001" value="40.7128" required />
+
+      <label for="longitude">Longitude</label>
+      <input id="longitude" name="longitude" type="number" step="0.0001" value="-74.0060" required />
+
+      <button type="submit">Lookup timezone</button>
+    </form>
+
+    <div class="result" data-result>Enter a coordinate pair and press the button to see the timezone.</div>
+
+    <footer>
+      Powered by the <code>tzf-wasm</code> package compiled from Rust to WebAssembly.
+    </footer>
+  </main>
+
+  <script type="module">
+    import init, { WasmFinder } from "./pkg/tzf_wasm.js";
+
+    const statusEl = document.querySelector('[data-status]');
+    const resultEl = document.querySelector('[data-result]');
+    const form = document.querySelector('#lookup-form');
+    const latInput = document.querySelector('#latitude');
+    const lngInput = document.querySelector('#longitude');
+
+    let finder;
+
+    async function bootstrap() {
+      try {
+        statusEl.textContent = 'Loading WebAssembly…';
+        statusEl.dataset.ready = 'false';
+        await init();
+        finder = new WasmFinder();
+        statusEl.textContent = 'Ready to look up timezones';
+        statusEl.dataset.ready = 'true';
+      } catch (error) {
+        console.error('Failed to load tzf-wasm preview', error);
+        statusEl.textContent = 'Failed to load the WebAssembly module';
+        resultEl.textContent = 'Trouble loading tzf-wasm—check the browser console for details.';
+      }
+    }
+
+    bootstrap();
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!finder) {
+        resultEl.textContent = 'The WebAssembly module is still loading.';
+        return;
+      }
+
+      const latitude = Number.parseFloat(latInput.value);
+      const longitude = Number.parseFloat(lngInput.value);
+
+      if (Number.isNaN(latitude) || Number.isNaN(longitude)) {
+        resultEl.textContent = 'Please provide valid decimal numbers for latitude and longitude.';
+        return;
+      }
+
+      try {
+        const tz = finder.get_tz_name(longitude, latitude);
+        resultEl.textContent = tz ? `Timezone: ${tz}` : 'No timezone found for that location.';
+      } catch (error) {
+        console.error('Lookup failed', error);
+        resultEl.textContent = 'An unexpected error occurred—see console for details.';
+      }
+    });
+  </script>
+</body>
+</html>

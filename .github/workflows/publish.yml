@@ -110,7 +110,6 @@ jobs:
 
       - name: Update npm
         run: npm install -g npm@latest
-      - run: npm ci
 
       - name: Publish to npm
         working-directory: dist/pkg

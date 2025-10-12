@@ -30,7 +30,7 @@ jobs:
 
       - name: Build shared artifacts
         run: |
-          wasm-pack build --release --target web
+          make build
           rm -rf dist
           mkdir dist
           cp preview/index.html dist/index.html

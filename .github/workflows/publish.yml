@@ -62,10 +62,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: wasm-dist
-          path: .
-
-      - name: Prepare dist directory
-        run: mv wasm-dist dist
+          path: dist
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v4
@@ -93,10 +90,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: wasm-dist
-          path: .
-
-      - name: Prepare dist directory
-        run: mv wasm-dist dist
+          path: dist
 
       - name: Verify tag matches package version
         run: |

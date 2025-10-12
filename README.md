@@ -10,7 +10,7 @@ The latest build from the `main` branch is published automatically to GitHub Pag
 
 ## Use in HTML
 
-Please see [preview/index.html](./preview/index.html) for an example.
+Please see [preview/index.html](https://github.com/ringsaturn/tzf-wasm/tree/main/preview) for an example.
 
 For a more comprehensive web page with maps, see <https://github.com/ringsaturn/tzf-web>.
 

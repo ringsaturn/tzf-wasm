@@ -1,6 +1,5 @@
 use wasm_bindgen::prelude::*;
 use tzf_rs::DefaultFinder;
-use serde_json::to_string_pretty;
 
 #[wasm_bindgen]
 pub struct WasmFinder {
@@ -38,13 +37,11 @@ impl WasmFinder {
 
     #[wasm_bindgen]
     pub fn get_tz_geojson_from_polygonfinder(&self, tz_name: &str) -> String {
-        let boundary_file = self.default_finder.finder.get_tz_geojson(tz_name);
-        to_string_pretty(&boundary_file).expect("Failed to serialize GeoJSON")
+        self.default_finder.finder.get_tz_geojson(tz_name).unwrap().to_string()
     }
 
     #[wasm_bindgen]
     pub fn get_tz_geojson_from_fuzzy(&self, tz_name: &str) -> String {
-        let boundary_file = self.default_finder.fuzzy_finder.get_tz_geojson(tz_name);
-        to_string_pretty(&boundary_file).expect("Failed to serialize GeoJSON")
+        self.default_finder.fuzzy_finder.get_tz_geojson(tz_name).unwrap().to_string()
     }
 }

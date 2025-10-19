@@ -518,8 +518,7 @@ checksum = "6fb5c10d0e0d00ad6552ae5feab676ba03858ba9ccf4494743b7f242984419d4"
 [[package]]
 name = "tzf-rs"
 version = "1.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5d7106af37f16bef42f3d1029ec05fb50da223eac9d25330477da8c81f805326"
+source = "git+https://github.com/ringsaturn/tzf-rs?rev=909301a#909301a3e6dd8960dbfb0f5093790422c300061e"
 dependencies = [
  "anyhow",
  "bytes",
@@ -528,6 +527,7 @@ dependencies = [
  "prost",
  "prost-build",
  "serde",
+ "serde_json",
  "tzf-rel",
 ]
 
@@ -536,8 +536,6 @@ name = "tzf-wasm"
 version = "1.0.1"
 dependencies = [
  "getrandom",
- "serde",
- "serde_json",
  "tzf-rs",
  "wasm-bindgen",
 ]

@@ -36,12 +36,12 @@ impl WasmFinder {
     }
 
     #[wasm_bindgen]
-    pub fn get_tz_geojson_from_polygonfinder(&self, tz_name: &str) -> String {
+    pub fn get_tz_polygon_geojson(&self, tz_name: &str) -> String {
         self.default_finder.finder.get_tz_geojson(tz_name).unwrap().to_string()
     }
 
     #[wasm_bindgen]
-    pub fn get_tz_geojson_from_fuzzy(&self, tz_name: &str) -> String {
+    pub fn get_tz_index_geojson(&self, tz_name: &str) -> String {
         self.default_finder.fuzzy_finder.get_tz_geojson(tz_name).unwrap().to_string()
     }
 }

@@ -512,14 +512,12 @@ dependencies = [
 [[package]]
 name = "tzf-rel"
 version = "0.0.2025-b"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6fb5c10d0e0d00ad6552ae5feab676ba03858ba9ccf4494743b7f242984419d4"
+source = "git+https://github.com/ringsaturn/tzf-rel?rev=84e7d9a#84e7d9a6cd669b65dbedc53a970043a72c897b53"
 
 [[package]]
 name = "tzf-rs"
 version = "1.1.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0f6d803ce81e92f3da9fdf861172e3a288a020ee5e7bfa95918b34a1b4674148"
+source = "git+https://github.com/ringsaturn/tzf-rs.git?branch=ringsaturn%2Fdebug#744c12a9da4578c7ef1f10f1aaed043bd1996463"
 dependencies = [
  "anyhow",
  "bytes",
